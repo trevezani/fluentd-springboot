@@ -32,6 +32,6 @@ docker stats $(docker ps --format={{.Names}})
 ## Results
 
 <img src="docs/images/kibana_logs.png" alt="kibana_logs.png">
-<img src="docs/images/console_stats.png" alt="console_stats.png">
+<img src="docs/images/kibana_discover.png" alt="kibana_discover.png">
 <img src="docs/images/console_curl.png" alt="console_curl.png">
 <img src="docs/images/console_stats.png" alt="console_stats.png">
