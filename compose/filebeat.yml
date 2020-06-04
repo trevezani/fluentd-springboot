@@ -1,0 +1,28 @@
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      templates:
+        - condition:
+            and:
+              - has_fields: ['docker.container.labels.elastic_index', 'docker.container.labels.send.logs']
+              - equals:
+                  docker.container.labels.send.logs: "true"
+          config:
+            - type: docker
+              json.keys_under_root: true
+              json.add_error_key: true
+              json.message_key: log
+              containers:
+                ids:
+                  - "${data.docker.container.id}"
+processors:
+  - add_docker_metadata: ~
+
+setup.template.enabled: false
+setup.template.name: "%{[docker.container.labels.es_index]}"
+setup.template.pattern: "%{[docker.container.labels.es_index]}-*"
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  protocol: http
+  index: "%{[docker.container.labels.elastic_index]}-%{[agent.version]}-%{+yyyy.MM.dd}"

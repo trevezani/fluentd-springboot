@@ -1,0 +1,36 @@
+management:
+  endpoint:
+    beans:
+      enabled: true
+    health:
+      enabled: true
+    
+    metrics:
+      enabled: true
+    
+    prometheus:
+      enabled: true
+
+    loggers:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+spring:
+  main:
+    banner-mode: "off"
+    allow-bean-definition-overriding: true
+  
+  application:
+    name: zipcode
+
+server:
+  port: 8080

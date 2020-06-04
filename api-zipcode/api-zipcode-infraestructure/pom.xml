@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>br.com.trevezani.tutorial.api.zipcode</groupId>
+		<artifactId>api-zipcode</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>br.com.trevezani.tutorial.api.zipcode.infraestructure</groupId>
+	<artifactId>api-zipcode-infraestructure</artifactId>
+	<name>infraestructure</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>br.com.trevezani.tutorial.api.zipcode.core</groupId>
+			<artifactId>api-zipcode-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.csvjdbc</groupId>
+			<artifactId>csvjdbc</artifactId>
+			<version>${csvjdbc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>${logstash.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>api-zipcode</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>
+								build-info
+							</goal>
+						</goals>
+						<configuration>
+							<additionalProperties>
+								<name>api-zipcode</name>
+								<java.version>${java.version}</java.version>
+							</additionalProperties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.33.0</version>
+				<configuration>
+					<images>
+						<image>
+							<name>${project.parent.artifactId}:${project.version}</name>
+							<build>
+								<dockerFile>${project.basedir}/Dockerfile</dockerFile>
+							</build>
+						</image>
+					</images>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
