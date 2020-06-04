@@ -56,9 +56,10 @@ services:
     container_name: census
     image: api-zipcode:0.0.1-SNAPSHOT
     ports:
-      - "8080:8080"
+      - "1401:1401"
     environment:
-      - PORT_EXTERNAL=8080
+      - "PORT_EXTERNAL=1401"
+      - "server.port=1401"
     labels:      
       - "elastic_index=springboot"
       - "send.logs=true"

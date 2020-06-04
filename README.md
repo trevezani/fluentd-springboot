@@ -20,7 +20,7 @@ Links: [[Elastick Search]](http://localhost:9200) [[Kibana]](http://localhost:56
 
 Once running, you can call:
 ```
-curl http://localhost:8080/zipcode/37188
+curl http://localhost:1401/zipcode/37188
 ```
 * checking the memory
 ```

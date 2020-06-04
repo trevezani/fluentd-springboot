@@ -33,4 +33,4 @@ spring:
     name: zipcode
 
 server:
-  port: 8080
+  port: 1401
