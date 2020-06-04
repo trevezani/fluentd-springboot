@@ -8,7 +8,7 @@ COPY target/*.jar target
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 
-FROM adoptopenjdk/openjdk11-openj9:alpine-slim
+FROM adoptopenjdk/openjdk11-openj9:alpine-jre
 VOLUME /tmp
 
 ARG DEPENDENCY=/workspace/app/target/dependency
