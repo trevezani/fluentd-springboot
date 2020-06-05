@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: zipcode
+    version: 1.0.0
+  name: zipcode-1.0.0
+  namespace: census
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zipcode
+      version: 1.0.0
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: zipcode
+        version: 1.0.0
+    spec:
+      containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: "-Xms16m -Xmx48m -XX:MaxMetaspaceSize=64m -XX:CompressedClassSpaceSize=8m -Xss256k -Xmn8m -XX:InitialCodeCacheSize=4m -XX:ReservedCodeCacheSize=8m -XX:MaxDirectMemorySize=16m"
+          - name: PORT_EXTERNAL
+            value: "1401"
+          - name: server.port
+            value: "1401"
+          name: zipcode
+          image: <REGISTRY IP>:5000/api-zipcode:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1401
+              name: http
+              protocol: TCP
+          resources:
+            limits:
+              memory: 150Mi
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/health
+              port: 1401
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /actuator/health
+              port: 1401
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5              
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: service-registry
