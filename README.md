@@ -64,9 +64,19 @@ kubectl apply -f kubernetes/ingress.yaml
 kubectl create namespace logging
 
 kubectl apply -f kubernetes/elastic.yaml
-kubectl apply -f kubernetes/fluentd.yaml
 kubectl apply -f kubernetes/kibana.yaml
 ```
+
+Two ways to transport the log to the elasticsearch: Fluentd and Filebeat. Choose one.
+
+```
+kubectl apply -f kubernetes/fluentd.yaml
+```
+
+```
+kubectl apply -f kubernetes/filebeat.yaml
+```
+
 
 Link: [[Kibana]](http://logging.trevezani.com.br/)
 
