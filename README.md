@@ -1,4 +1,4 @@
-# springboot-fluentd
+# fluentd-springboot
 
 The full example is present in [microservices-tutorial-springboot](https://github.com/trevezani/microservices-tutorial-springboot)
 
